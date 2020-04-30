@@ -1,6 +1,14 @@
 <?php
 
 /**
+ * Автозагрузка классов
+ */
+spl_autoload_register(function ($class_name) {
+    $file = __DIR__ . '/' . str_replace('\\', '/', $class_name) . '.php';
+    if (is_file($file)) require_once $file;
+});
+
+/**
  * Компонент для логирования
  */
 $logger = new Logger\Logger();
@@ -85,7 +93,6 @@ $logger->debug('Debug message');
 
 $logger->log(Logger\LogLevel::LEVEL_NOTICE, 'Notice message');
 $logger->notice('Notice message');
-
 
 $fileLogger->log(Logger\LogLevel::LEVEL_INFO, 'Info message from FileLogger');
 $fileLogger->info('Info message from FileLogger');
